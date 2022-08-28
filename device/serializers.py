@@ -4,5 +4,5 @@ from .models import Device
 class DeviceSerializer (serializers.ModelSerializer):
     class Meta:
         model = Device
-        fields = ['id', 'deviceName', 'showName', 'visionAI']
+        fields = ['id', 'deviceName', 'hostName', 'wifiName', 'wifiPass', 'visionAI']
 
