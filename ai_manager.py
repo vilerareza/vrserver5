@@ -4,7 +4,7 @@ import pickle
 
 from tensorflow.keras import models
 import numpy as np
-from openvino.inference_engine import IECore
+#from openvino.inference_engine import IECore
 
 from cv2 import imread, resize, rectangle, imdecode, imencode
 import numpy as np
@@ -40,8 +40,9 @@ class AI_Manager():
             self.modelLocation = model_location
             if model_location != '':
                 if ie:
+                    pass
                     # Use intel inference engine
-                    self.classifier = self.create_inference_engine(self.modelLocation)
+                    # self.classifier = self.create_inference_engine(self.modelLocation)
                 else:
                     # Use regular tf / keras model
                     self.classifier = models.load_model(self.modelLocation)
@@ -51,20 +52,20 @@ class AI_Manager():
         # Classes
         self.classPrimaryKeys, self.classVectors = self.get_class_objects(model = FaceObject)
 
-    def create_inference_engine(self, model_location):
-        ie = IECore()
-        net  = ie.read_network(model = model_location)
-        input_name = next(iter(net.input_info))
-        output_name = next(iter(net.outputs))
-        self.ieModelProperties = input_name, output_name
-        try:
-            model = ie.load_network(network = self.ieModelLocation, device_name = "MYRIAD")
-            print ("USE NCS2 VPU")
-        except:
-            model = ie.load_network(network = self.ieModelLocation, device_name = "CPU")
-            print ("NCS2 not found, use CPU...")
+    # def create_inference_engine(self, model_location):
+    #     ie = IECore()
+    #     net  = ie.read_network(model = model_location)
+    #     input_name = next(iter(net.input_info))
+    #     output_name = next(iter(net.outputs))
+    #     self.ieModelProperties = input_name, output_name
+    #     try:
+    #         model = ie.load_network(network = self.ieModelLocation, device_name = "MYRIAD")
+    #         print ("USE NCS2 VPU")
+    #     except:
+    #         model = ie.load_network(network = self.ieModelLocation, device_name = "CPU")
+    #         print ("NCS2 not found, use CPU...")
         
-        return model
+    #     return model
     
     def bound_faces(self, detector_type, bytes_data):
         # Get image byte data, detect face and create bounding box, return image byte data.
@@ -223,8 +224,9 @@ class AI_Manager():
         self.modelLocation = model_location
         if self.modelLocation != '':
             if ie:
+                pass
                 # Use intel inference engine
-                self.classifier = self.create_inference_engine(self.modelLocation)
+                # self.classifier = self.create_inference_engine(self.modelLocation)
             else:
                 # Use regular tf / keras model
                 self.classifier = models.load_model(self.modelLocation)
